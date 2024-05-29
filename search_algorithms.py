@@ -1,4 +1,5 @@
 import time
+import timeit
 
 # Implementación de la búsqueda lineal
 def linear_search(lista, objetivo):
@@ -27,18 +28,21 @@ def binary_search(lista, objetivo):
 datos = list(range(1000000))  # Lista grande ordenada
 objetivo = 999999  # Valor a buscar
 
+# Funciones envoltorio para usar con timeit
+def linear_search_wrapper():
+    return linear_search(datos, objetivo)
+
+def binary_search_wrapper():
+    return binary_search(datos, objetivo)
+
 # Medir tiempo de ejecución de la búsqueda lineal
-inicio = time.time()
+tiempo_lineal = timeit.timeit(linear_search_wrapper, number=1)
 indice_lineal = linear_search(datos, objetivo)
-fin = time.time()
-tiempo_lineal = fin - inicio
 print(f"Linear Search: Index {indice_lineal}, Time {tiempo_lineal:.10f} seconds")
 
 # Medir tiempo de ejecución de la búsqueda binaria
-inicio = time.time()
+tiempo_binaria = timeit.timeit(binary_search_wrapper, number=1)
 indice_binaria = binary_search(datos, objetivo)
-fin = time.time()
-tiempo_binaria = fin - inicio
 print(f"Binary Search: Index {indice_binaria}, Time {tiempo_binaria:.10f} seconds")
 
 # Resultados
